@@ -1,0 +1,23 @@
+{
+  "name": "landmark_searcher",
+  "version": "1.0.0",
+  "description": "Tainan image searcher",
+  "main": "index.html",
+  "scripts": {
+    "test": "Alan"
+  },
+  "keywords": [
+    "."
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "filepond": "^4.30.4",
+    "filepond-plugin-file-validate-type": "^1.2.8",
+    "filepond-plugin-image-edit": "^1.6.3",
+    "filepond-plugin-image-preview": "^4.6.11",
+    "install": "^0.13.0",
+    "ngx-filepond": "^6.0.1",
+    "vue-filepond": "^7.0.3"
+  }
+}

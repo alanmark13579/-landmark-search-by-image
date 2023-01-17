@@ -1,0 +1,89 @@
+/**
+ * FilePond Custom Styles
+ */
+.filepond--drop-label {
+	color: #4c4e53;
+}
+
+.filepond--label-action {
+	text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+	background-color: #fff;
+}
+
+.filepond--item-panel {
+	background-color: #595e68;
+}
+
+.filepond--drip-blob {
+	background-color: #7f8a9a;
+}
+
+.filepond {
+	width: 150px;
+	height: 150px;
+	padding: 0;
+	overflow: hidden;
+}
+
+.filepond--root,
+.filepond--image-preview-wrapper {
+	border-radius: 6px;
+	border: 2px solid #e9ecef;
+}
+
+.filepond--list {
+	left: 0;
+	right: 0;
+}
+
+.filepond--drop-label {
+	bottom: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+}
+
+.filepond--file-info {
+	display: none;
+}
+
+.filepond--file-action-button {
+	display: none;
+}
+
+.filepond--image-preview-overlay {
+	display: none;
+}
+
+.filepond--item-panel {
+	display: none;
+}
+
+.filepond--file .filepond--action-remove-item {
+	display: block;
+	bottom: 1em;
+	left: calc(50% - 0.8125em);
+}
+
+.filepond--file .filepond--progress-indicator {
+	top: 20px;
+	right: calc(50% - 0.625em);
+  color: #ccc;
+}
+
+
+
+/**
+ * Page Styles
+ */
+html {
+	padding: 30vh 0 0;
+}
+
+body {
+	max-width: 170px;
+	margin: 0 auto;
+}
