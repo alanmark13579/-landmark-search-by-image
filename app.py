@@ -1,51 +1,44 @@
-from flask import Flask, request, render_template, send_file 
-from PIL import Image
-from io import BytesIO
-import google.cloud.logging
-import logging
+from flask import Flask, request, redirect, url_for ,render_template 
 import os
 
-#建立GCP logging api
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r"./.credentials\client_secret.json"
-client = google.cloud.logging.Client()
-client.setup_logging()
-
-app  = Flask(__name__)
-
-
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'static/upload'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # 如果是 POST 請求，則回傳使用者輸入的訊息
-    if request.method == 'POST':
-        return request.form['message']
-    # 否則回傳網頁
+    print(0)
     return render_template('index.html')
+"""     if request.method == 'POST':
+        print(1)
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = file.filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            print(2)
+            return redirect(url_for('uploaded_file', filename=filename)) """
 
-@app.route('/send_imgLW', methods=['POST'])
-def send_imgHL():
 
-    if request.method == 'POST':
-        
-        # 回傳使用者輸入的訊息(width、length、color)
-        width = int(request.form['width'])
-        length = int(request.form['length'])
-        color = request.form['color-type']
-       
-        # 建立空白圖片
-        image = Image.new('RGB', (width, length), color)
+@app.route('/upload', methods=['POST'])
+def upload():
+    print(1)
+    try:
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = file.filename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            print('圖片已成功上傳')
+            return '圖片已成功上傳'
+        else:
+            print('檔案格式不正確')
+            return "檔案格式不正確"
+    except Exception as e:
+        print(e)
+        print('發生未知錯誤')
+        return "發生未知錯誤"
 
-        # 將圖片轉成二進位資料
-        image_bytes = BytesIO()
-        image.save(image_bytes, format='png')
-        image_bytes.seek(0)
-
-        # 回傳圖片
-        return send_file(
-            image_bytes,
-            mimetype='image/png'
-        )
-
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

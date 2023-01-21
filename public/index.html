@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,22 +9,39 @@
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
 </head>
 <body>
-
-    <input type="file"/>
-
+    <!-- <form method='post' action="/upload"> -->
+    <input type="file" name="file" id="filepond">
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 
     <script>
-    // Register the plugin with FilePond
+    // 預覽上傳的圖片
     FilePond.registerPlugin(FilePondPluginImagePreview);
-
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('input[type="file"]');
-
-    // Create the FilePond instance
-    const pond = FilePond.create(inputElement);
+    const inputImage = document.querySelector('input[type="file"]');
+    const pond = FilePond.create(inputImage);
     </script>
 
+    <script>
+    var inputElement = document.getElementById("filepond");
+    var filePond = FilePond.create( inputElement );
+
+    filePond.on('processfile', (error, file) => {
+        if(error) {
+            console.log(error);
+        } else {
+            var formData = new FormData();
+            formData.append('file', file.file);
+
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(response => console.log(response));
+        }
+    });
+    </script>
+
+    </form>
 </body>
 </html>
